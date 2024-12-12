@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fapol - Výroba sáčků</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Fapol</h1>
+        <nav>
+            <ul>
+                <li><a href="#" onclick="navigateTo('domu')">Domů</a></li>
+                <li><a href="#" onclick="navigateTo('produkty')">Produkty</a></li>
+                <li><a href="#" onclick="navigateTo('nakup')">Nákup</a></li>
+                <li><a href="#" onclick="navigateTo('onas')">O nás</a></li>
+                <li><a href="#" onclick="navigateTo('kontakt')">Kontakt</a></li>
+                <li class="cart">
+                    <a href="#" onclick="navigateTo('kosik')">
+                        🛒 <span id="cart-count">0</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main id="content"></main>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+<div class="select-box">
+    <div class="select-option">
+        <imput type="text" placeholder="Select"
