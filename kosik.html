@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Košík</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <nav>
+            <ul id="nav">
+                <li><a href="home.html">Domů</a></li>
+                <li><a href="produkty.html">Produkty</a></li>
+                <li><a href="nakup.html">Nákup</a></li>
+                <li><a href="o-nas.html">O nás</a></li>
+                <li><a href="kontakt.html">Kontakt</a></li>
+                <li><a href="register.html">Přihlášení</a></li>
+                <li class="cart"><a href="kosik.html" onclick="navigateTo('kosik')">
+                        🛒<span id="cart-count">0</span></a></li>
+            </ul>
+        </nav>
+    </header>
+
+<!-- Hlavní obsah -->
+<div class="container my-5">
+    <div id="content">
+        <!-- Košík se zde dynamicky vykreslí -->
+    </div>
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
