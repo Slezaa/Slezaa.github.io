@@ -9,50 +9,82 @@
 <body>
     <header>
         <nav>
-            <ul id="nav">
-                <li><a href="home.html">Domů</a></li>
-                <li><a href="produkty.html">Produkty</a></li>
-                <li><a href="nakup.html">Nákup</a></li>
-                <li><a href="o-nas.html">O nás</a></li>
-                <li><a href="kontakt.html">Kontakt</a></li>
-                <li><a href="register.html">Přihlášení</a></li>
-                <li class="cart"><a href="kosik.html" onclick="navigateTo('kosik')">
-                        🛒<span id="cart-count">0</span></a></li>
-            </ul>
+            <div class="nav-wrapper">
+                <div class="logo">
+                    <a href="home.html">
+                        <img src="images/Fapol_logo_bile.png" alt="Logo Fapol">
+                    </a>
+                </div>
+
+                <div class="hamburger" onclick="toggleMenu()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+
+                <ul id="nav">
+                    <li><a href="home.html">Domů</a></li>
+                    <li><a href="produkty.html">E-shop</a></li>
+                    <li><a href="o-nas.html">O nás</a></li>
+                    <li><a href="kontakt.html">Kontakt</a></li>
+                    <li><a href="register.html">Přihlášení</a></li>
+                    <li class="cart">
+                        <a href="kosik.html">
+                            🛒<span id="cart-count">0</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </nav>
+
+    <!-- Banner s logem a textem -->
+        <div class="home-background">
+            <div class="logo-container">
+                <img src="images/Fapol_logo_bile.png" alt="Logo Fapol">
+                <p>Váš dodavatel sáčků</p>
+            </div>
+        </div>
     </header>
-    <div class="home-background">
-        <h1>Fapol</h1>
-        <p>Váš dodavatel sáčků</p>
-    </div>
-    <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 20px;">
-        <div style="flex: 1; min-width: 300px;">
-            <h2><strong>Naše nejprodávanější produkty</strong></h2>
+
+    </br><h2><strong>Naše nejprodávanější produkty</strong></h2></br>
+
+    <div class="produkty-grid">
+        <!-- Produkt 1 -->
+        <div class="produkt-card">
+            <img src="images/Doypack_cerny.jpg" alt="Černý doypack sáček" class="produkt-image">
+            <div class="produkt-content">
+                <h3>Černý doypack sáček</h3>
+                <p>Doypack sáčky například na kávu, s ventilkem, černý, balení 10 ks</p>
+                <p><strong>Velikost:</strong> 20x30cm</p>
+                <p><strong>Kategorie:</strong> Doypack sáčky</p>
+            </div>
+        </div>
+        <!-- Produkt 2 -->
+        <div class="produkt-card">
+            <img src="images/zip_sacek.jpg" alt="Průhledný ZIP sáček" class="produkt-image">
+            <div class="produkt-content">
+                <h3>Průhledný ZIP sáček</h3>
+                <p>ZIP sáčky, průhledné, balení 500 ks</p>
+                <p><strong>Velikost:</strong> 6x9 cm</p>
+                <p><strong>Kategorie:</strong> Papírové sáčky</p>
+            </div>
+        </div>
+        <!-- Produkt 3 -->
+        <div class="produkt-card">
+            <img src="images/papirovy_sacel.webp" alt="Hnědé papírové sáčky" class="produkt-image">
+            <div class="produkt-content">
+                <h3>Hnědé papírové sáčky</h3>
+                <p>Papírové sáčky, 100% recyklované, hnědé, 250 ks</p>
+                <p><strong>Velikost:</strong> 15x25x6 cm </p>
+                <p><strong>Kategorie:</strong> Papírové sáčky</p>
+            </div>
         </div>
     </div>
-    <div class="product-grid">
-        <div class="product-box">
-            <img src="images/150.jpg" alt="Sáček 20x30">
-            <h2>Plastový sáček</h2>
-            <p>Cena: 10 Kč</p>
-            <p>Ideální pro menší balení.</p>
-        </div>
-        <div class="product-box">
-            <img src="images/150.jpg" alt="Sáček 30x40">
-            <h2>Papírový sáček</h2>
-            <p>Cena: 15 Kč</p>
-            <p>Vhodné pro středně velká balení.</p>
-        </div>
-        <div class="product-box">
-            <img src="images/150.jpg" alt="Sáček 40x50">
-            <h2>Ekologický sáček</h2>
-            <p>Cena: 20 Kč</p>
-            <p>Skvělé pro větší balení.</p>
-        </div>
-    </div> 
-    <script src="script.js"></script>
+    </header>
     <div id="footer">
         <p>&copy; 2024 Fapol. Všechna práva vyhrazena.</p>
     </div>
+    
+    <script src="script.js"></script>
 </body>
 </html>

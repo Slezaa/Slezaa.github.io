@@ -1,11 +1,6 @@
 <?php
 session_start();
-
-if (!isset($_SESSION['jmeno'])) {
-    echo "Nejste přihlášen";
-    exit();
-}
-
+include 'admin_check.php';
 $jmeno = $_SESSION['jmeno'];
 ?>
 
@@ -20,14 +15,14 @@ $jmeno = $_SESSION['jmeno'];
 
 <div class="navbar">
     <h3>Moje menu</h3>
-    <a href="objednavky.php">Moje objednávky</a>
-    <a href="zmena_hesla.php">Změna hesla</a>
+    <a href="objednavky_uzivatelu.php">Objednávky</a>
+    <a href="pridat_produkt.php">Přidat produkt</a>
+    <a href="vsechny_produkty.php">Všechny produkty</a>
     <a href="logout.php">Odhlásit se</a>
 </div>
 
 <div class="content">
-    <h1>Vítejte, <?php echo htmlspecialchars($jmeno); ?>!</h1>
-    <p>Zde najdete přehled svého účtu.</p>
+    <h1>Vítejte, jste přihlášen jako admin <?php echo htmlspecialchars($jmeno); ?> :)</h1>
 </div>
 
 </body>

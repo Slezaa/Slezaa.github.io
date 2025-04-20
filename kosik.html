@@ -7,30 +7,85 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
     <header>
         <nav>
-            <ul id="nav">
-                <li><a href="home.html">Domů</a></li>
-                <li><a href="produkty.html">Produkty</a></li>
-                <li><a href="nakup.html">Nákup</a></li>
-                <li><a href="o-nas.html">O nás</a></li>
-                <li><a href="kontakt.html">Kontakt</a></li>
-                <li><a href="register.html">Přihlášení</a></li>
-                <li class="cart"><a href="kosik.html" onclick="navigateTo('kosik')">
-                        🛒<span id="cart-count">0</span></a></li>
-            </ul>
+            <div class="nav-wrapper">
+                <div class="logo">
+                    <a href="home.html">
+                        <img src="images/Fapol_logo_bile.png" alt="Logo Fapol">
+                    </a>
+                </div>
+
+                <div class="hamburger" onclick="toggleMenu()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+
+                <ul id="nav">
+                    <li><a href="home.html">Domů</a></li>
+                    <li><a href="produkty.html">E-shop</a></li>
+                    <li><a href="o-nas.html">O nás</a></li>
+                    <li><a href="kontakt.html">Kontakt</a></li>
+                    <li><a href="register.html">Přihlášení</a></li>
+                    <li class="cart">
+                        <a href="kosik.html">
+                            🛒<span id="cart-count">0</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </nav>
     </header>
 
-<!-- Hlavní obsah -->
-<div class="container my-5">
     <div id="content">
-        <!-- Košík se zde dynamicky vykreslí -->
+        <!-- vykreslení produktů -->
     </div>
-</div>
 
-<script src="script.js"></script>
 
+    <div class="checkout-container" style="display: none;" id="checkout-wrapper">
+        <div class="checkout-box" id="user-auth">
+            <h2>Přihlášení</h2>
+            <form id="login-form" class="login-form">
+                <input type="text" name="email" placeholder="Email" required><br>
+                <input type="password" name="heslo" placeholder="Heslo" required><br>
+                <button type="submit">Přihlásit se</button><br>
+                <p id="login-message" style="color: red;"></p>
+            </form>
+        </div>
+    
+        <div class="checkout-box" id="delivery-options">
+            <h2>Možnosti doručení</h2>
+            <div class="delivery-option">
+                <label>
+                    <input type="radio" name="delivery" value="store" checked>
+                    <div class="delivery-card">
+                        <strong>Vyzvednutí na prodejně</strong><br>
+                        <span>Zdarma, ihned k odběru</span>
+                    </div>
+                </label>
+            </div>
+            <div class="delivery-option disabled">
+                <label>
+                    <input type="radio" name="delivery" value="delivery" disabled>
+                    <div class="delivery-card">
+                        <strong>Doručení na adresu</strong><br>
+                        <span>Zatím nedostupné</span>
+                    </div>
+                </label>
+            </div>
+    
+            <div id="proceed-section" style="margin-top: 2rem;">
+                <a id="proceed-to-payment" href="platba.html"
+                   class="btn-disabled">
+                    Přejít na platbu
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    
+
+    <script src="script.js"></script>
 </body>
 </html>

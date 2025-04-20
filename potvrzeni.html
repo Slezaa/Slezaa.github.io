@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Produkty</title>
+    <title>Fapol</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -15,7 +15,7 @@
                         <img src="images/Fapol_logo_bile.png" alt="Logo Fapol">
                     </a>
                 </div>
-                
+
                 <div class="hamburger" onclick="toggleMenu()">
                     <span></span>
                     <span></span>
@@ -29,7 +29,7 @@
                     <li><a href="kontakt.html">Kontakt</a></li>
                     <li><a href="register.html">Přihlášení</a></li>
                     <li class="cart">
-                        <a href="kosik.html" onclick="navigateTo('kosik')">
+                        <a href="kosik.html">
                             🛒<span id="cart-count">0</span>
                         </a>
                     </li>
@@ -37,24 +37,15 @@
             </div>
         </nav>
     </header>
-    <div class="category-filter">
-        <label for="category"><strong>Vyberte kategorii:</strong></label>
-        <select id="category">
-             <option value="all">Všechny kategorie</option>
-             <option value="Doypack sáčky">Doypack sáčky</option>
-             <option value="Odtrhávací sáčky">Odtrhávací sáčky</option>
-            <option value="Papírové sáčky">Papírové sáčky</option>
-            <option value="Plastové sáčky">Plastové sáčky</option>
-            <option value="ZIP sáčky">ZIP sáčky</option>
-        </select>
+
+    <div class="potvrzeni-content">
+        <h1>Objednávka úspěšně odeslána!</h1>
+        <p>Děkujeme za vaši objednávku! Po jejím připravení vás budeme kontaktovat na váš e-mail.</strong></p>
+        <button onclick="window.location.href='home.html'">Přejít na hlavní stránku</button>
     </div>
-
-    <main class="container">
-        <div id="produkty-container" class="produkty-grid"></div>
-    </main>
-
-
+    
     <script src="script.js"></script>
+
     <div id="footer">
         <p>&copy; 2024 Fapol. Všechna práva vyhrazena.</p>
     </div>

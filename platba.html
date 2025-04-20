@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Platba</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="payment-box">
+    <h2>Údaje o platbě</h2>
+    <form id="payment-form">
+        <input type="text" id="card-number" placeholder="Číslo karty" maxlength="19" required>
+        <div class="row">
+            <input type="text" id="card-expiry" placeholder="MM/YY" maxlength="5" required>
+            <input type="text" id="card-cvc" placeholder="CVC" maxlength="4" required>
+        </div>
+        <input type="text" id="card-name" placeholder="Jméno držitele karty" maxlength="26" required>
+        <button type="submit">Zaplatit</button>
+        <div class="error" id="error-message"></div>
+        <div class="success" id="success-message"></div>
+    </form>
+</div>
+
+<script>
+    document.getElementById("payment-form").addEventListener("submit", function(e) {
+        e.preventDefault();
+
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        if (cart.length === 0) {
+            alert("Košík je prázdný.");
+            return;
+        }
+
+        const cardNumber = document.getElementById("card-number").value.trim();
+        const expiry = document.getElementById("card-expiry").value.trim();
+        const cvc = document.getElementById("card-cvc").value.trim();
+        const name = document.getElementById("card-name").value.trim();
+        const errorDiv = document.getElementById("error-message");
+        const successDiv = document.getElementById("success-message");
+
+        errorDiv.textContent = "";
+        successDiv.textContent = "";
+
+        if (!cardNumber || !expiry || !cvc || !name) {
+            errorDiv.textContent = "Vyplňte všechna pole.";
+            return;
+        }
+
+        const expiryMatch = expiry.match(/^(\d{2})\/(\d{2})$/);
+        if (!expiryMatch) {
+            errorDiv.textContent = "Neplatný formát expirace. Použijte MM/YY.";
+            return;
+        }
+
+        const month = parseInt(expiryMatch[1]);
+        const year = parseInt("20" + expiryMatch[2]);
+
+        if (month < 1 || month > 12) {
+            errorDiv.textContent = "Neplatný měsíc expirace.";
+            return;
+        }
+
+        const today = new Date();
+        const expiryDate = new Date(year, month);
+        if (expiryDate <= today) {
+            errorDiv.textContent = "Karta již expirovala.";
+            return;
+        }
+
+        successDiv.textContent = "Platba byla úspěšná. (Simulováno)";
+
+        // Získání e-mailu uživatele
+        const user = JSON.parse(localStorage.getItem('user')) || {};
+        const userEmail = localStorage.getItem('cartEmail') || 'guest@example.com';
+
+        odeslatObjednavku(cart, userEmail);
+    });
+
+    function odeslatObjednavku(cart, email) {
+        const celkovaCena = cart.reduce((sum, item) => sum + parseFloat(item.price) * item.quantity, 0);
+
+        fetch('zpracuj_objednavku.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                produkty: cart,
+                celkova_cena: celkovaCena,
+                uzivatel_email: email
+            })
+        })
+        .then(res => res.text())
+        .then(data => {
+            console.log("Odpověď ze serveru:", data);
+            try {
+                const jsonResponse = JSON.parse(data);
+                if (jsonResponse.success) {
+                    localStorage.removeItem('cart');
+                    localStorage.removeItem('cartEmail');
+                    //alert("Objednávka úspěšně odeslána!");
+                    window.location.href = "potvrzeni.html";
+                } else {
+                    alert("Chyba: " + jsonResponse.error);
+                }
+            } catch (e) {
+                console.error("Chyba při parsování JSON odpovědi:", e);
+                alert("Chybná odpověď serveru. Zkuste to znovu.");
+            }
+        })
+        .catch(err => {
+            console.error("Chyba při odesílání:", err);
+            alert("Chyba při komunikaci se serverem.");
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const cardNumberInput = document.getElementById('card-number');
+        const expiryInput = document.getElementById('card-expiry');
+
+        cardNumberInput.addEventListener('input', () => {
+            let value = cardNumberInput.value.replace(/\D/g, '').substring(0, 16);
+            cardNumberInput.value = value.match(/.{1,4}/g)?.join(' ') || '';
+        });
+
+        expiryInput.addEventListener('input', () => {
+            let value = expiryInput.value.replace(/\D/g, '').substring(0, 4);
+            if (value.length > 2) {
+                value = `${value.slice(0, 2)}/${value.slice(2)}`;
+            }
+            expiryInput.value = value;
+        });
+    });
+</script>
+</body>
+</html>

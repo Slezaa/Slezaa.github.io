@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registrace / Přihlášení</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="style2.css">
 </head>
 <body>
-    <div class="container">
+    <div class="register-container">
         <div id="registrationForm">
             <h2>Registrace</h2>
             <form action="register.php" method="POST">
@@ -15,8 +15,9 @@
                 <input type="text" name="prijmeni" placeholder="Příjmení" required>
                 <input type="tel" pattern="[0-9]{3} [0-9]{3} [0-9]{3}" name="telefon" placeholder="Telefon" required>
                 <input type="email" name="email" placeholder="Email" required>
-                <input type="text" name="adresa" placeholder="Adresa" required>
+                <input type="text" name="ulice" placeholder="Adresa" required>
                 <input type="text" name="mesto" placeholder="Město" required>
+                <input type="text" name="psc" placeholder="PSČ" required>
                 <input type="password" name="heslo" placeholder="Heslo" required>
                 <button type="submit">Registrovat</button>
             </form>

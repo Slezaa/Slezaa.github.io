@@ -1,32 +1,34 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "uzivatele_fapol";
+require 'db.php';
 
-$conn = new mysqli($servername, $username, $password, $dbname);
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
-if ($conn->connect_error) {
-    die("Připojení selhalo: " . $conn->connect_error);
+    $jmeno = $_POST['jmeno'];
+    $prijmeni = $_POST['prijmeni'];
+    $telefon = $_POST['telefon'];
+    $email = $_POST['email'];
+    $ulice = $_POST['ulice'];
+    $mesto = $_POST['mesto'];
+    $psc = $_POST['psc'];
+    $heslo = password_hash($_POST['heslo'], PASSWORD_DEFAULT);
+
+    try {
+        // Check if email already exists
+        $stmt = $pdo->prepare("SELECT id FROM uzivatel WHERE email = ?");
+        $stmt->execute([$email]);
+        if ($stmt->rowCount() > 0) {
+            echo "<script>alert('Email již existuje!'); window.location.href = 'register.html';</script>";
+            exit();
+        }
+
+        // Insert user into the database
+        $stmt = $pdo->prepare("INSERT INTO uzivatel (jmeno, prijmeni, telefon, email, ulice, mesto, psc, heslo)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->execute([$jmeno, $prijmeni, $telefon, $email, $ulice, $mesto, $psc, $heslo]);
+
+        echo "<script>alert('Registrace proběhla úspěšně!'); window.location.href = 'register.html';</script>";
+    } catch (PDOException $e) {
+        echo "<script>alert('Chyba při registraci: " . $e->getMessage() . "'); window.location.href = 'register.html';</script>";
+    }
 }
-
-$jmeno = $_POST['jmeno'];
-$prijmeni = $_POST['prijmeni'];
-$telefon = $_POST['telefon'];
-$email = $_POST['email'];
-$adresa = $_POST['adresa'];
-$mesto = $_POST['mesto'];
-$heslo = crypt($_POST['heslo'], PASSWORD_DEFAULT);
-
-$sql = "INSERT INTO uzivatele_fapol (jmeno, prijmeni, telefon, email, adresa, mesto, heslo)
-VALUES ('$jmeno', '$prijmeni', '$telefon', '$email', '$adresa', '$mesto', '$heslo')";
-
-if ($conn->query($sql) === TRUE) {
-    echo"<script>alert('Registration successful!');</script>";
-} else {
-    echo "<script>alert('Registration failed!');</script>";
-}
-
-$conn->close();
-header("Location: register.html");
 ?>

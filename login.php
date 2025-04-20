@@ -1,36 +1,34 @@
 <?php
 session_start();
+require 'db.php';
 
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "uzivatele_fapol";
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $email = $_POST['email'];
+    $heslo = $_POST['heslo'];
 
-$conn = new mysqli($servername, $username, $password, $dbname);
+    try {
+        $stmt = $pdo->prepare("SELECT id, jmeno, heslo FROM uzivatel WHERE email = ?");
+        $stmt->execute([$email]);
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-if ($conn->connect_error) {
-    die("Připojení selhalo: " . $conn->connect_error);
-}
+        if ($user && password_verify($heslo, $user['heslo'])) {
+            $_SESSION['email'] = $email;
+            $_SESSION['jmeno'] = $user['jmeno'];
+            $_SESSION['id'] = $user['id'];
 
-$email = $_POST['email'];
-$heslo = $_POST['heslo'];
-
-$sql = "SELECT jmeno, heslo FROM uzivatele_fapol WHERE email='$email'";
-$result = $conn->query($sql);
-
-if ($result->num_rows > 0) {
-    $row = $result->fetch_assoc();
-    if (password_verify($heslo, $row['heslo'])) {
-        $_SESSION['jmeno'] = $row['jmeno'];
-        header("Location: uzivatel.php");
-        exit();
-    } else {
-        echo "Nesprávné heslo";
+            // admin
+            $admin_ids = [1, 2, 3];
+            if (in_array($user['id'], $admin_ids)) {
+                header("Location: admin.php");
+            } else {
+                header("Location: uzivatel.php");
+            }
+            exit();
+        } else {
+            echo "<script>alert('Nesprávné přihlašovací údaje'); window.location.href = 'register.html';</script>";
+        }
+    } catch (PDOException $e) {
+        echo "<script>alert('Chyba databáze: " . $e->getMessage() . "');</script>";
     }
-} else {
-    echo "Uživatel nenalezen";
-    echo '<br><a href="register.php">Zpět na přihlášení</a>';
 }
-
-$conn->close();
 ?>
