@@ -1,4 +1,3 @@
-//  HAMBURGER MENU
 function toggleMenu() {
     const nav = document.getElementById('nav');
     nav.classList.toggle('active');
@@ -7,7 +6,6 @@ function toggleMenu() {
 let cart = [];
 let products = [];
 
-//  SPUŠTĚNÍ PŘI NAČTENÍ STRÁNKY
 document.addEventListener("DOMContentLoaded", () => {
     loadCart();
     updateCartCount();
@@ -31,7 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
-//  KOSÍK
+//převod textu na objekt
 function loadCart() {
     const savedCart = localStorage.getItem('cart');
     if (savedCart) {
@@ -179,7 +177,6 @@ function addToCart(productId) {
 
     saveCart();
     updateCartCount();
-    renderCart();
 }
 
 // Login v košíku
